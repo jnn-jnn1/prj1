@@ -5,6 +5,8 @@
     <title>새 게시물 작성</title>
 </head>
 <body>
+<c:import url="/WEB-INF/fragment/navbar.jsp"/>
+
 <h3>새 게시물 작성</h3>
 <form action="/add" method="post">
     <div>

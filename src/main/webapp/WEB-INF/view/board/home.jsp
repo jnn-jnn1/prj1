@@ -5,6 +5,7 @@
     <title>메인 페이지</title>
 </head>
 <body>
+<c:import url="/WEB-INF/fragment/navbar.jsp"/>
 <h3>게시물 목록</h3>
 <table>
     <thead>
@@ -15,10 +16,15 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="boardList" var="list">
+    <c:forEach items="${boardList}" var="list">
+        <c:url value="/board" var="viewLink">
+            <c:param name="id" value="${list.id}"/>
+        </c:url>
         <tr>
             <td>${list.id}</td>
-            <td>${list.title}</td>
+            <td>
+                <a href="${viewLink}">${list.title}</a>
+            </td>
             <td>${list.writer}</td>
         </tr>
     </c:forEach>
