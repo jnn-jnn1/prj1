@@ -1,6 +1,6 @@
-CREATE DATABASE pj1;
+CREATE DATABASE prj1;
 
-USE pj1;
+USE prj1;
 
 CREATE TABLE board
 (
@@ -10,3 +10,7 @@ CREATE TABLE board
     writer   VARCHAR(100)  NOT NULL,
     inserted DATETIME      NOT NULL DEFAULT NOW()
 );
+
+SELECT *
+FROM board;
+
