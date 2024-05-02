@@ -18,7 +18,12 @@
             <form action="/member/signup" method="post" onsubmit="return checkValues()">
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">이메일</label>
-                    <input name="email" id="inputEmail" required type="email" class="form-control">
+                    <div class="input-group">
+                        <input name="email" id="inputEmail" required type="email" class="form-control">
+                        <button onclick="emailCheck();" type="button" id="buttonEmailCheck"
+                                class="btn btn-outline-secondary">중복 확인
+                        </button>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">패스워드</label>
@@ -44,6 +49,17 @@
 </div>
 
 <script>
+    async function emailCheck() {
+        const emailValue = document.querySelector("#inputEmail").value;
+        const url = "/member/email?email=" + emailValue;
+
+        // ajax 요청
+        const response = await fetch(encodeURI(url));
+        alert(await response.text());
+
+        // 응답처리
+    }
+
     function passwordCheck() {
         const password = document.querySelector("#inputPassword").value;
         const passwordCheck = document.querySelector("#inputPasswordCheck").value;
@@ -71,5 +87,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
