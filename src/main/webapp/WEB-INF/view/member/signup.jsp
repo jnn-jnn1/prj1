@@ -38,7 +38,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="inputNickName" class="form-label">별명</label>
-                    <input name="nickName" id="inputNickName" required type="text" class="form-control">
+                    <div class="input-group">
+                        <input name="nickName" id="inputNickName" required type="text" class="form-control">
+                        <button type="button" class="btn btn-outline-secondary"
+                                id="btnNickNameCheck" onclick="nickNameCheck()">중복확인
+                        </button>
+                    </div>
                 </div>
                 <div>
                     <button class="btn btn-primary">가입</button>
@@ -49,6 +54,15 @@
 </div>
 
 <script>
+
+    async function nickNameCheck() {
+        const nickNameValue = document.getElementById("inputNickName").value;
+        const url = "/member/check?nickName=" + nickNameValue;
+
+        const result = await fetch(encodeURI(url));
+        alert(await result.text());
+    }
+
     async function emailCheck() {
         const emailValue = document.querySelector("#inputEmail").value;
         const url = "/member/email?email=" + emailValue;
