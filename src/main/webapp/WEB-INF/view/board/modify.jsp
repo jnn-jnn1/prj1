@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>새 게시물 작성</title>
+    <title>게시글 수정</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
           integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -14,32 +14,34 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-6">
-            <h3 class="mb-3">새 게시물 작성</h3>
-            <form action="/add" method="post">
+            <h3 class="mb-3">${board.id}번 게시물 수정</h3>
+            <form action="/modify" method="post">
+                <input type="hidden" name="id" value="${board.id}">
                 <div class="mb-3">
                     <label for="inputTitle" class="form-label">
                         제목
                     </label>
-                    <input class="form-control" id="inputTitle" type="text" name="title" required>
+                    <input class="form-control" id="inputTitle" type="text" value="${board.title}" name="title"
+                           required>
                 </div>
                 <div class="mb-3">
                     <label for="textareaContent" class="form-label">
                         본문
                     </label>
                     <textarea id="textareaContent" class="form-control" name="content" cols="30" rows="10"
-                              required></textarea>
+                              required>${board.content}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="inputWriter" class="form-label">
                         작성자
                     </label>
-                    <input id="inputWriter" class="form-control" type="text" name="writer" required>
+                    <input class="form-control" id="inputWriter" type="text" value="${board.writer}" name="writer"
+                           required>
                 </div>
                 <div>
-                    <button>저장</button>
+                    <button>수정</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
