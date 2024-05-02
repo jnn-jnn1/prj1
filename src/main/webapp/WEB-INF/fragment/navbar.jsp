@@ -16,6 +16,12 @@
                 </li>
                 <li>
                     <a href="/add" class="nav-link">글쓰기</a>
+                </li
+                <li>
+                    <a href="/member/list" class="nav-link">회원목록</a>
+                </li>
+                <li>
+                    <a href="/member/signup" class="nav-link">회원가입</a>
                 </li>
             </ul>
         </li>
