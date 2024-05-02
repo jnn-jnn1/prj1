@@ -10,48 +10,39 @@
 </head>
 <body>
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-6">
-            <h3 class="mb-4">${member.id}번 회원 정보</h3>
-            <div>
+            <h3 class="mb-4">회원 정보 수정</h3>
+            <form action="/member/modify" method="post" onsubmit="return confirm('저장하시겠습니까?')">
+                <input type="hidden" name="id" value="${member.id}">
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">
                         이메일
                     </label>
-                    <input value="${member.email}" id="inputEmail" type="text" readonly class="form-control">
+                    <input id="inputEmail" type="text" class="form-control-plaintext" value="${member.email}">
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">
                         패스워드
                     </label>
-                    <input id="inputPassword" value="${member.password} " type="text" readonly class="form-control">
+                    <input id="inputPassword" type="text" class="form-control" name="password"
+                           value="${member.password}">
                 </div>
                 <div class="mb-3">
                     <label for="inputNickName" class="form-label">
                         별명
                     </label>
-                    <input id="inputNickName" value="${member.nickName}" type="text" readonly class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="inputInserted" class="form-label">
-                        가입일시
-                    </label>
-                    <input id="inputInserted" value="${member.inserted}" type="datetime-local" readonly
-                           class="form-control">
+                    <input id="inputNickName" type="text" class="form-control" name="nickName"
+                           value="${member.nickName}">
                 </div>
                 <div>
-                    <button class="btn btn-danger" form="formDelete">탈퇴</button>
-                    <a class="btn btn secondary" href="member/modify?id=${member.id}">정보 수정</a>
+                    <button class="btn btn secondary">저장</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-</div>
-<div class="d-none" onsubmit="return confirm('탈퇴하시겠습니까?')">
-    <form action="/member/remove" id="formDelete" method="post">
-        <input type="hidden" name="id" value="${member.id}">
-    </form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

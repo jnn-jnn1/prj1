@@ -29,4 +29,8 @@ public class MemberService {
     public void remove(Integer id) {
         mapper.delete(id);
     }
+
+    public void modify(Member member) {
+        mapper.update(member);
+    }
 }
