@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,19 +41,30 @@
                     <input id="inputInserted" value="${member.inserted}" type="datetime-local" readonly
                            class="form-control">
                 </div>
-                <div>
-                    <button class="btn btn-danger" form="formDelete">탈퇴</button>
-                    <a class="btn btn secondary" href="member/modify?id=${member.id}">정보 수정</a>
-                </div>
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal.member" var="authMember"/>
+                    <c:if test="${authMember.id eq member.id}">
+                        <div>
+                            <button class="btn btn-danger" form="formDelete">탈퇴</button>
+                            <a class="btn btn secondary" href="member/modify?id=${member.id}">정보 수정</a>
+                        </div>
+                    </c:if>
+                </sec:authorize>
             </div>
         </div>
     </div>
 </div>
-<div class="d-none" onsubmit="return confirm('탈퇴하시겠습니까?')">
-    <form action="/member/remove" id="formDelete" method="post">
-        <input type="hidden" name="id" value="${member.id}">
-    </form>
-</div>
+
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal.member" var="authMember"/>
+    <c:if test="${authMember.id eq member.id}">
+        <div class="d-none" onsubmit="return confirm('탈퇴하시겠습니까?')">
+            <form action="/member/remove" id="formDelete" method="post">
+                <input type="hidden" name="id" value="${member.id}">
+            </form>
+        </div>
+    </c:if>
+</sec:authorize>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

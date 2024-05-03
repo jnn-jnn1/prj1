@@ -43,6 +43,12 @@ public class MemberService {
     }
 
     public void modify(Member member) {
+        if (member.getPassword() != null && member.getPassword().length() > 0) {
+            member.setPassword(encoder.encode(member.getPassword()));
+        } else {
+            Member old = mapper.selectById(member.getId());
+            member.setPassword(old.getPassword());
+        }
         mapper.update(member);
     }
 
