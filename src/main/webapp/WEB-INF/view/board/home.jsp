@@ -44,12 +44,60 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-6">
-            <c:forEach begin="1" end="${pageInfo.lastPageNumber}" var="pageNumber">
-                <c:url var="pageLink" value="/">
-                    <c:param name="page" value="${pageNumber}"/>
-                </c:url>
-                <a href="${pageLink}">${pageNumber}|</a>
-            </c:forEach>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <c:if test="${pageInfo.currentPageNumber > 1}">
+                        <c:url value="/" var="firstPageLnk">
+                            <c:param name="page" value="1"/>
+                        </c:url>
+                        <li class="page-item">
+                            <a class="page-link" href="${firstPageLnk}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:if test="${pageInfo.prevPageNumber > 0}">
+                        <c:url value="/" var="prevPageLink">
+                            <c:param name="page" value="${pageInfo.prevPageNumber}"/>
+                        </c:url>
+                        <li class="page-item">
+                            <a class="page-link" href="${prevPageLink}">
+                                &lt;
+                            </a>
+                        </li>
+                    </c:if>
+
+                    <c:forEach begin="${pageInfo.beginPageNumber}" end="${pageInfo.endPageNumber}" var="pageNumber">
+                        <c:url var="pageLink" value="/">
+                            <c:param name="page" value="${pageNumber}"/>
+                        </c:url>
+                        <li class="page-item ${pageInfo.currentPageNumber eq pageNumber ? 'active' : ''}">
+                            <a class="page-link" href="${pageLink}">${pageNumber}</a>
+                        </li>
+                    </c:forEach>
+
+                    <c:if test="${pageInfo.nextPageNumber < pageInfo.lastPageNumber}">
+                        <c:url value="/" var="nextPageLink">
+                            <c:param name="page" value="${pageInfo.nextPageNumber}"/>
+                        </c:url>
+                        <li class="page-item">
+                            <a class="page-link" href="${nextPageLink}">
+                                &gt;
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:if test="${pageInfo.currentPageNumber < pageInfo.lastPageNumber}">
+                        <li class="page-item">
+                            <c:url value="/" var="lastPageLink">
+                                <c:param name="page" value="${pageInfo.lastPageNumber}"/>
+                            </c:url>
+                            <a class="page-link" href="${lastPageLink}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

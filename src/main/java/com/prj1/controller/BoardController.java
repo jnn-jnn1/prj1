@@ -3,6 +3,7 @@ package com.prj1.controller;
 import com.prj1.domain.Board;
 import com.prj1.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,9 @@ public class BoardController {
     }
 
     @PostMapping("/add")
-    public String addPost(Board board, RedirectAttributes rttr) {
-        service.add(board);
+    public String addPost(Board board, Authentication authentication,
+                          RedirectAttributes rttr) {
+        service.add(board, authentication);
 
         rttr.addAttribute("id", board.getId());
         return "redirect:/board";
@@ -47,8 +49,10 @@ public class BoardController {
     }
 
     @PostMapping("delete")
-    public String delete(Integer id) {
-        service.remove(id);
+    public String delete(Integer id, Authentication authentication) {
+        if (service.hasAccess(id, authentication)) {
+            service.remove(id);
+        }
 
         return "redirect:/";
     }
@@ -62,8 +66,11 @@ public class BoardController {
     }
 
     @PostMapping("modify")
-    public String modifyPost(Board board, RedirectAttributes rttr) {
-        service.modify(board);
+    public String modifyPost(Board board, Authentication authentication,
+                             RedirectAttributes rttr) {
+        if (service.hasAccess(board.getId(), authentication)) {
+            service.modify(board);
+        }
 
         rttr.addAttribute("id", board.getId());
         return "redirect:/board";
