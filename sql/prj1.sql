@@ -30,5 +30,13 @@ ALTER TABLE member
     ADD COLUMN inserted DATETIME NOT NULL DEFAULT NOW();
 
 SELECT *
-FROM member;
+FROM board;
 
+# 페이징용
+INSERT INTO board
+    (title, content, writer)
+SELECT title, content, writer
+FROM board;
+
+SELECT COUNT(id)
+FROM board;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,13 @@ public class BoardService {
 
     public void modify(Board board) {
         mapper.update(board);
+    }
+
+    public Map<String, Object> list(Integer page) {
+        int offset = (page - 1) * 10;
+        int numberOfboard = mapper.countAll();
+        int lastPageNumber = (numberOfboard - 1) / 10 + 1;
+        return Map.of("boardList", mapper.selectAllByPage(page),
+                "pageInfo", Map.of("lastPageNumber", lastPageNumber));
     }
 }
